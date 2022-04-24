@@ -8,7 +8,10 @@ module.exports = function (app) {
   let convertHandler = new ConvertHandler();
 
   app.get('/api/convert/', function(req, res) {
-    res.json({string: "success", quantity: req.query.input});
+    let number = convertHandler.getNum(req.query.input);
+    let unit = convertHandler.getUnit(req.query.input);
+    res.json({string: "success", quantity: req.query.input, num: number, unit: unit});
   });
 
+  
 };

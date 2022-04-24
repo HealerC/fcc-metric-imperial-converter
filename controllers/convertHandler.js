@@ -2,13 +2,15 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    
+    const numRegex = /^\d+(?=\w)/;
+    result = input.match(numRegex)[0];
     return result;
   };
   
   this.getUnit = function(input) {
     let result;
-    
+    const unitRegex = /(?<=\d)\D+$/;
+    result = input.match(unitRegex)[0];
     return result;
   };
   

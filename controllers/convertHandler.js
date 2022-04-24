@@ -16,7 +16,16 @@ function ConvertHandler() {
   
   this.getReturnUnit = function(initUnit) {
     let result;
-    
+    const unit = initUnit.toLowerCase();
+    const conjugateUnits = {
+      "gal": "l",
+      "l": "gal",
+      "km": "mi",
+      "mi": "km",
+      "lbs": "kg",
+      "kg": "lbs"
+    }
+    result = conjugateUnits[unit];
     return result;
   };
 
@@ -31,8 +40,30 @@ function ConvertHandler() {
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
     let result;
-    
-    return result;
+    const unit = initUnit.toLowerCase();
+    switch(unit) {
+      case "gal":
+        result = initNum * galToL;
+        break;
+      case "l":
+        result = galToL / initNum;
+        break;
+      case "lbs":
+        result = initNum * lbsToKg;
+        break;
+      case "kg":
+        result = lbsToKg / initNum;
+        break;
+      case "mi":
+        result = initNum * miToKm;
+        break;
+      case "km":
+        result = miToKm / initNum;
+        break;
+      default:
+        result = null;
+    }
+    return result ? result + this.getReturnUnit(initUnit) : null;
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {

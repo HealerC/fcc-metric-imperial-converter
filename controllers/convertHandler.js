@@ -82,7 +82,7 @@ function ConvertHandler() {
       default:
         result = null;
     }
-    return result ? {num: result, unit: this.getReturnUnit(initUnit)} : null;
+    return result ? {num: result.toFixed(5), unit: this.getReturnUnit(initUnit)} : null;
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {

@@ -56,7 +56,7 @@ function ConvertHandler() {
     let result;
     const unitsInFull = {
       "gal": "gallon",
-      "l": "litre",
+      "l": "litre", "L": "litre",
       "km": "kilometer",
       "mi": "mile",
       "kg": "kilogram",

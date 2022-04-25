@@ -31,7 +31,15 @@ function ConvertHandler() {
 
   this.spellOutUnit = function(unit) {
     let result;
-    
+    const unitsInFull = {
+      "gal": "gallon",
+      "l": "litre",
+      "km": "kilometer",
+      "mi": "mile",
+      "kg": "kilogram",
+      "lbs": "pound"
+    }
+    result = unitsInFull[unit];
     return result;
   };
   
@@ -40,34 +48,36 @@ function ConvertHandler() {
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
     let result;
+    console.log(initNum);
     const unit = initUnit.toLowerCase();
     switch(unit) {
       case "gal":
         result = initNum * galToL;
         break;
       case "l":
-        result = galToL / initNum;
+        result = initNum / galToL;
         break;
       case "lbs":
         result = initNum * lbsToKg;
         break;
       case "kg":
-        result = lbsToKg / initNum;
+        result = initNum / lbsToKg;
         break;
       case "mi":
         result = initNum * miToKm;
         break;
       case "km":
-        result = miToKm / initNum;
+        result = initNum / miToKm;
         break;
       default:
         result = null;
     }
-    return result ? result + this.getReturnUnit(initUnit) : null;
+    return result ? {num: result, unit: this.getReturnUnit(initUnit)} : null;
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    let result;
+    console.log(initNum != 1);
+    let result = `${initNum} ${this.spellOutUnit(initUnit) + (initNum != 1 ? "s" : "")} converts to ${returnNum} ${this.spellOutUnit(returnUnit) + (returnNum != 1 && "s")}`;
     
     return result;
   };

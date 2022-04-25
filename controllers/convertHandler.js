@@ -36,7 +36,7 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     let result;
     const unitRegex = /\D+$/;
-    result = input.match(unitRegex)[0];
+    result = input.match(unitRegex)[0].toLowerCase();
     // in case the unit provided is non-valid
     if (!this.conjugateUnits[result]) return null;
     return result;

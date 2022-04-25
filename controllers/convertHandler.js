@@ -26,6 +26,7 @@ function ConvertHandler() {
       result = left / right;
     } else {
       result = Number(numExp);
+      console.log(result);
     }
     //console.log(input.match(numRegex));
     return result;
@@ -35,6 +36,8 @@ function ConvertHandler() {
     let result;
     const unitRegex = /\D+$/;
     result = input.match(unitRegex)[0];
+    console.log(result);
+    if (!this.conjugateUnits[result]) return null;
     return result;
   };
   
@@ -64,7 +67,6 @@ function ConvertHandler() {
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
     let result;
-    console.log(initNum);
     const unit = initUnit.toLowerCase();
     switch(unit) {
       case "gal":
@@ -92,7 +94,6 @@ function ConvertHandler() {
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    console.log(initNum != 1);
     let result = `${initNum} ${this.spellOutUnit(initUnit) + (initNum != 1 ? "s" : "")} converts to ${returnNum} ${this.spellOutUnit(returnUnit) + (returnNum != 1 ? "s" : "")}`;
     
     return result;

@@ -39,6 +39,9 @@ function ConvertHandler() {
     result = input.match(unitRegex)[0].toLowerCase();
     // in case the unit provided is non-valid
     if (!this.conjugateUnits[result]) return null;
+    if (result === 'l') {
+      return result.toUpperCase();
+    }
     return result;
   };
   

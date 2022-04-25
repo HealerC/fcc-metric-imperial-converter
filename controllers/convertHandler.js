@@ -1,10 +1,24 @@
 function ConvertHandler() {
-  
+
+  this.conjugateUnits = {
+    "gal": "L",
+    "l": "gal",
+    "km": "mi",
+    "mi": "km",
+    "lbs": "kg",
+    "kg": "lbs"
+  }
+
   this.getNum = function(input) {
     let result;
     //const numRegex = /(^(0|[1-9]\d*)?(\.\d+)?(?<=\d))(?=\D)/;
     const unitRegex = /(?<=\d)\D+$/;
-    const numExp = input.slice(0, input.search(unitRegex));
+    const unitIndex = input.search(unitRegex);
+    if (unitIndex < 0) {
+      return 1;
+    }
+    const numExp = input.slice(0, unitIndex);
+    
     const divisorIndex = numExp.indexOf("/");
     if (divisorIndex !== -1) {
       const left = Number(numExp.slice(0, divisorIndex));
@@ -19,7 +33,7 @@ function ConvertHandler() {
   
   this.getUnit = function(input) {
     let result;
-    const unitRegex = /(?<=\d)\D+$/;
+    const unitRegex = /\D+$/;
     result = input.match(unitRegex)[0];
     return result;
   };
@@ -27,15 +41,7 @@ function ConvertHandler() {
   this.getReturnUnit = function(initUnit) {
     let result;
     const unit = initUnit.toLowerCase();
-    const conjugateUnits = {
-      "gal": "L",
-      "l": "gal",
-      "km": "mi",
-      "mi": "km",
-      "lbs": "kg",
-      "kg": "lbs"
-    }
-    result = conjugateUnits[unit];
+    result = this.conjugateUnits[unit];
     return result;
   };
 

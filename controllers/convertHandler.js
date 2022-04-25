@@ -28,7 +28,7 @@ function ConvertHandler() {
     let result;
     const unit = initUnit.toLowerCase();
     const conjugateUnits = {
-      "gal": "l",
+      "gal": "L",
       "l": "gal",
       "km": "mi",
       "mi": "km",

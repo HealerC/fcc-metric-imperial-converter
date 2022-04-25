@@ -1,5 +1,6 @@
 function ConvertHandler() {
 
+  // All the units that "should" be provided and will be used
   this.conjugateUnits = {
     "gal": "L",
     "l": "gal",
@@ -9,16 +10,18 @@ function ConvertHandler() {
     "kg": "lbs"
   }
 
+  /* Just get the unit and remove it to get the number (string).
+  If the number has a division sign '/' (fraction), act accordingly */
   this.getNum = function(input) {
     let result;
-    //const numRegex = /(^(0|[1-9]\d*)?(\.\d+)?(?<=\d))(?=\D)/;
     const unitRegex = /(?<=\d)\D+$/;
     const unitIndex = input.search(unitRegex);
     if (unitIndex < 0) {
-      return 1;
+      return 1;   // A number was not provided. Just the unit. Defaults to 1
     }
-    const numExp = input.slice(0, unitIndex);
+    const numExp = input.slice(0, unitIndex); // Remove the unit
     
+    /* Series of operations to handle fractions */
     const divisorIndex = numExp.indexOf("/");
     if (divisorIndex !== -1) {
       const left = Number(numExp.slice(0, divisorIndex));
@@ -26,9 +29,7 @@ function ConvertHandler() {
       result = left / right;
     } else {
       result = Number(numExp);
-      console.log(result);
     }
-    //console.log(input.match(numRegex));
     return result;
   };
   
@@ -36,7 +37,7 @@ function ConvertHandler() {
     let result;
     const unitRegex = /\D+$/;
     result = input.match(unitRegex)[0];
-    console.log(result);
+    // in case the unit provided is non-valid
     if (!this.conjugateUnits[result]) return null;
     return result;
   };
@@ -88,13 +89,18 @@ function ConvertHandler() {
         result = initNum / miToKm;
         break;
       default:
-        result = null;
+        result = null;    // somehow a non-valid unit is provided
     }
-    return result ? {num: result.toFixed(5), unit: this.getReturnUnit(initUnit)} : null;
+    return result ? { num: result.toFixed(5), 
+                      unit: this.getReturnUnit(initUnit)
+                    } : null;
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    let result = `${initNum} ${this.spellOutUnit(initUnit) + (initNum != 1 ? "s" : "")} converts to ${returnNum} ${this.spellOutUnit(returnUnit) + (returnNum != 1 ? "s" : "")}`;
+    let result = `${initNum} ${this.spellOutUnit(initUnit) + 
+                                   (initNum != 1 ? "s" : "")} converts to\
+                  ${returnNum} ${this.spellOutUnit(returnUnit) + 
+                                   (returnNum != 1 ? "s" : "")}`;
     
     return result;
   };

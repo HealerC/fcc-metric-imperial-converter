@@ -10,9 +10,8 @@ module.exports = function (app) {
   app.get('/api/convert/', function(req, res) {
     let number = convertHandler.getNum(req.query.input);
     let unit = convertHandler.getUnit(req.query.input);
-    if (!number && !unit) throw new TypeError("invalid number and unit");
-    if (!number) throw new TypeError("invalid number");
-    if (!unit) throw new TypeError("invalid unit");
+    errorChecker(number, unit);
+    
     unit = unit.toLowerCase() === "l" ? "L" : unit;
     const {num: returnNum, unit: returnUnit} = convertHandler.convert(number, unit);
     const result = {returnNum, returnUnit};
@@ -24,5 +23,10 @@ module.exports = function (app) {
       string: convString});
   });
 
+  function errorChecker(number, unit) {
+    if (!number && !unit) throw new TypeError("invalid number and unit");
+    if (!number) throw new TypeError("invalid number");
+    if (!unit) throw new TypeError("invalid unit");
+  }
   
 };

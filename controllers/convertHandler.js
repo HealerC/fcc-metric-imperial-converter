@@ -87,7 +87,7 @@ function ConvertHandler() {
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
     console.log(initNum != 1);
-    let result = `${initNum} ${this.spellOutUnit(initUnit) + (initNum != 1 ? "s" : "")} converts to ${returnNum} ${this.spellOutUnit(returnUnit) + (returnNum != 1 && "s")}`;
+    let result = `${initNum} ${this.spellOutUnit(initUnit) + (initNum != 1 ? "s" : "")} converts to ${returnNum} ${this.spellOutUnit(returnUnit) + (returnNum != 1 ? "s" : "")}`;
     
     return result;
   };

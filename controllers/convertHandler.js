@@ -2,8 +2,18 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    const numRegex = /^\d+(?=\w)/;
-    result = input.match(numRegex)[0];
+    //const numRegex = /(^(0|[1-9]\d*)?(\.\d+)?(?<=\d))(?=\D)/;
+    const unitRegex = /(?<=\d)\D+$/;
+    const numExp = input.slice(0, input.search(unitRegex));
+    const divisorIndex = numExp.indexOf("/");
+    if (divisorIndex !== -1) {
+      const left = Number(numExp.slice(0, divisorIndex));
+      const right = Number(numExp.slice(divisorIndex+1));
+      result = left / right;
+    } else {
+      result = Number(numExp);
+    }
+    //console.log(input.match(numRegex));
     return result;
   };
   

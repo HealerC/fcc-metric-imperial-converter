@@ -5,6 +5,7 @@ const ConvertHandler = require('../controllers/convertHandler.js');
 let convertHandler = new ConvertHandler();
 
 suite('Unit Tests', function(){
+  // Tests involving input numbers
   suite('Input Numbers', function() {
     test('#extractWholeNumber', function() {
       assert.equal(convertHandler.getNum("27km"), 27, 
@@ -31,6 +32,8 @@ suite('Unit Tests', function(){
                     'Double fractions should not work');
     });
   });
+
+  // Tests involving input units
   suite('Input Units', function(){
     test('#extractUnit', function(){
       assert.equal(convertHandler.getUnit("27km"), "km", 
@@ -50,6 +53,8 @@ suite('Unit Tests', function(){
     });
     
   });
+
+  // Tests on conversions
   suite('Converter', function(){
     test('#galToL', function(){
       assert.deepEqual(convertHandler.convert('1', 'gal'), {num: 3.78541, unit: 'L'});

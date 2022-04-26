@@ -9,6 +9,7 @@ suite('Functional Tests', function() {
   this.timeout(5000);
 
   suite('Conversions', function() {
+    
     suite('Valid Conversions', function() {
       test('Convert a valid input', function(done) {
         chai
@@ -34,10 +35,10 @@ suite('Functional Tests', function() {
             done();
           });
       });
-    })
+    });
 
     suite('Invalid conversions', function(){
-      test('Convert an invalid input', function(done) {
+      test('Convert an invalid unit', function(done) {
         chai
           .request(server)
           .get('/api/convert?input=32g')
@@ -73,6 +74,6 @@ suite('Functional Tests', function() {
             done();
           });
       }); 
-    })
+    });
   });
 });

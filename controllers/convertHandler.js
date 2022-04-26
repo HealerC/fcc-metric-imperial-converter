@@ -14,22 +14,29 @@ function ConvertHandler() {
   If the number has a division sign '/' (fraction), act accordingly */
   this.getNum = function(input) {
     let result;
-    const unitRegex = /(?<=\d)\D+$/;
+    const unitRegex = /(?<=\d)\D+$/;  // Unit with number at the back
     const unitIndex = input.search(unitRegex);
+    
     if (unitIndex < 0) {
       return 1;   // A number was not provided. Just the unit. Defaults to 1
     }
+
     const numExp = input.slice(0, unitIndex); // Remove the unit
     
-    /* Series of operations to handle fractions */
+    /* Series of operations to handle fractions. Divide numbers 
+    left of divisor symbol by numbers right of divisor symbol */
     const divisorIndex = numExp.indexOf("/");
     if (divisorIndex !== -1) {
       const left = Number(numExp.slice(0, divisorIndex));
       const right = Number(numExp.slice(divisorIndex+1));
       result = left / right;
     } else {
+      /* No division is gonna take place */
       result = Number(numExp);
     }
+
+    /* It returns the number or NaN after all the above steps on
+    successful or failure respectively*/
     return result;
   };
   
@@ -43,21 +50,27 @@ function ConvertHandler() {
     
     // in case the unit provided is non-valid
     if (!this.conjugateUnits[result]) return null;
+    
+    // FCC wants all litres 'l' to be in 'L' (capitalized) :)
     if (result === 'l') {
       return result.toUpperCase();
     }
+
     return result;
   };
   
   this.getReturnUnit = function(initUnit) {
     let result;
+    
     const unit = initUnit.toLowerCase();
     result = this.conjugateUnits[unit];
+    
     return result;
   };
 
   this.spellOutUnit = function(unit) {
     let result;
+    
     const unitsInFull = {
       "gal": "gallon",
       "l": "liter", "L": "liter",
@@ -67,14 +80,17 @@ function ConvertHandler() {
       "lbs": "pound"
     }
     result = unitsInFull[unit];
+    
     return result;
   };
   
   this.convert = function(initNum, initUnit) {
+    let result;
+    
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
-    let result;
+    
     const unit = initUnit.toLowerCase();
     switch(unit) {
       case "gal":
@@ -98,6 +114,7 @@ function ConvertHandler() {
       default:
         result = null;    // somehow a non-valid unit is provided
     }
+    
     return result ? { num: Number(result.toFixed(5)), 
                       unit: this.getReturnUnit(initUnit)
                     } : null;

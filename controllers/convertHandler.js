@@ -104,8 +104,8 @@ function ConvertHandler() {
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    let result = `${initNum} ${this.spellOutUnit(initUnit)}s converts to\
-                  ${returnNum} ${this.spellOutUnit(returnUnit)}s`;
+    let result = `${initNum} ${this.spellOutUnit(initUnit)}s converts to ` +
+                  `${returnNum} ${this.spellOutUnit(returnUnit)}s`;
     
     return result;
   };

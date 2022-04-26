@@ -50,6 +50,10 @@
             success: function(data) {
               $('#result').text(data.string || data);
               $('#jsonResult').text(JSON.stringify(data));
+            },
+            error: function(jqXHR, textStatus) {
+              $('#result').text(jqXHR.responseText);
+              $('#jsonResult').text(`"${jqXHR.responseText}"`);
             }
           });
         });

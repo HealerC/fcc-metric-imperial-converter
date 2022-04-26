@@ -36,7 +36,11 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     let result;
     const unitRegex = /\D+$/;
-    result = input.match(unitRegex)[0].toLowerCase();
+    result = input.match(unitRegex);
+    if (!result) return null;
+
+    result = result[0].toLowerCase();
+    
     // in case the unit provided is non-valid
     if (!this.conjugateUnits[result]) return null;
     if (result === 'l') {
@@ -94,7 +98,7 @@ function ConvertHandler() {
       default:
         result = null;    // somehow a non-valid unit is provided
     }
-    return result ? { num: result.toFixed(5), 
+    return result ? { num: Number(result.toFixed(5)), 
                       unit: this.getReturnUnit(initUnit)
                     } : null;
   };

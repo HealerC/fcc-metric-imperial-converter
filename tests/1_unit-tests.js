@@ -45,7 +45,7 @@ suite('Unit Tests', function(){
                     'Should return correct return unit for a valid input');
     });
     test('#spellOutUnit', function() {
-      assert.equal(convertHandler.spellOutUnit("l"), "litre", 
+      assert.equal(convertHandler.spellOutUnit("l"), "liter", 
                     'Correctly spell out valid units');
     });
     

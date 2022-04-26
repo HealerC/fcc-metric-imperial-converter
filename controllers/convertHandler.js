@@ -60,7 +60,7 @@ function ConvertHandler() {
     let result;
     const unitsInFull = {
       "gal": "gallon",
-      "l": "litre", "L": "litre",
+      "l": "liter", "L": "liter",
       "km": "kilometer",
       "mi": "mile",
       "kg": "kilogram",
@@ -104,10 +104,8 @@ function ConvertHandler() {
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    let result = `${initNum} ${this.spellOutUnit(initUnit) + 
-                                   (initNum != 1 ? "s" : "")} converts to\
-                  ${returnNum} ${this.spellOutUnit(returnUnit) + 
-                                   (returnNum != 1 ? "s" : "")}`;
+    let result = `${initNum} ${this.spellOutUnit(initUnit)}s converts to\
+                  ${returnNum} ${this.spellOutUnit(returnUnit)}s`;
     
     return result;
   };
